@@ -1,4 +1,4 @@
-name: CI/CD Workflow
+name: CI Workflow
 
 on:
   push:
@@ -48,7 +48,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Build React app
+      - name: Build react app
         run: yarn build
 
       - name: Upload build artifact
@@ -79,7 +79,8 @@ jobs:
 
       - name: Serve app and test
         run: |
-          serve -S build & sleep 10
+          serve -S build &
+          sleep 10
           curl http://localhost:3000 | grep "React App"
 
   unit-tests:
@@ -104,23 +105,3 @@ jobs:
 
       - name: Run unit tests
         run: yarn test
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: unit-tests
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: build
-          path: build/
-
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
-          folder: build
