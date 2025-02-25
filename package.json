@@ -18,6 +18,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js"
   },
+  "homepage": "https://ort-project.github.io/react-app-3/",
   "eslintConfig": {
     "extends": [
       "react-app",
